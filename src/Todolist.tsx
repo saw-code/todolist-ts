@@ -1,10 +1,11 @@
 import React from "react";
+import {SelectButtonType} from "./App";
 
 type TodolistPropsType = {
   title: string
   tasks: Array<TaskType>
   filterDeleteButton: (elID: number) => void
-  filterSelectButton: (buttonValue: string) => void
+  filterSelectButton: (buttonValue: SelectButtonType) => void
 }
 
 export type TaskType = {

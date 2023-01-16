@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import './App.css';
 import {Todolist} from "./Todolist";
 
+export type SelectButtonType = "all" | "active" | "completed"
 
 function App() {
   const title = 'November'
@@ -16,26 +17,26 @@ function App() {
     setTasks(tasks.filter(el => el.id !== elID))
   }
 
-  const [select, setSelect] = useState("all")
+  const [select, setSelect] = useState<SelectButtonType>("all")
 
+  let selectTasks = tasks
 
-
-  const selectButton = (buttonValue: string) => {
+  const selectButton = (buttonValue: SelectButtonType) => {
     setSelect(buttonValue)
   }
 
   if(select === "active") {
-    setTasks(tasks.filter(el => !el.isDone))
+    selectTasks = tasks.filter(el => !el.isDone)
   }
 
   if(select === "completed") {
-    setTasks(tasks.filter(el => el.isDone))
+    selectTasks = tasks.filter(el => el.isDone)
   }
 
   return (
     <div className="App">
       <Todolist title={title}
-                tasks={tasks}
+                tasks={selectTasks}
                 filterDeleteButton={filterTask}
                 filterSelectButton={selectButton}
       />
