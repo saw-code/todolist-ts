@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
 
 type TaskType = {
@@ -12,15 +12,30 @@ type PropsType = {
   tasks: Array<TaskType>
   removeTask: (taskId: string) => void
   changeFilter: (value: FilterValuesType) => void
-  addTask: () => void
+  addTask: (newTitle: string) => void
 }
 
 export function Todolist(props: PropsType) {
+  const [title, setTitle] = useState("")
+
+  const addTaskHandler = () => {
+    props.addTask(title)
+    setTitle("")
+  }
+
+  const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
+    setTitle(e.currentTarget.value)
+  }
+
+  const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
+    if(e.key === "Enter") return addTaskHandler()
+  }
+
   return <div>
     <h3>{props.title}</h3>
     <div>
-      <input onChange={(e) => console.log()}/>
-      <button onClick={() => props.addTask()}>+</button>
+      <input value={title} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
+      <button onClick={addTaskHandler}>+</button>
     </div>
     <ul>
       {
