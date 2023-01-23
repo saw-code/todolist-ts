@@ -1,7 +1,7 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
 import {FilterValuesType} from './App';
 import {Button} from "./components/Button";
-
+import style from "./Todolist.module.css"
 type TaskType = {
   id: string
   title: string
@@ -14,6 +14,7 @@ type PropsType = {
   removeTask: (taskId: string) => void
   changeFilter: (value: FilterValuesType) => void
   addTask: (newTitle: string) => void
+  changeStatus: (taskID: string, eventStatus: boolean) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -25,11 +26,11 @@ export function Todolist(props: PropsType) {
   }
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
-    setTitle(e.currentTarget.value)
+    setTitle(e.currentTarget.value.trim())
   }
 
   const onKeyPressHandler = (e: KeyboardEvent<HTMLInputElement>) => {
-    if(e.key === "Enter") return addTaskHandler()
+    if (e.key === "Enter") return addTaskHandler()
   }
 
   const removeTaskHandler = (tID: string) => {
@@ -40,6 +41,10 @@ export function Todolist(props: PropsType) {
     props.changeFilter(nameButton)
   }
 
+  const changeStatusHandler = (id: string, event: boolean) => {
+    props.changeStatus(id, event)
+  }
+
   return <div>
     <h3>{props.title}</h3>
     <div>
@@ -48,14 +53,19 @@ export function Todolist(props: PropsType) {
     </div>
     <ul>
       {props.tasks.map(t => {
-          return (
-            <li key={t.id}>
-              <Button name={"X"}  callBack={() => removeTaskHandler(t.id)}/>
-              <input type="checkbox" checked={t.isDone}/>
-              <span>{t.title}</span>
-            </li>
-          )
-        })
+
+        // const changeStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
+        //   props.changeStatus(t.id, event.currentTarget.checked)
+        // }
+
+        return (
+          <li key={t.id}>
+            <Button name={"X"} callBack={() => removeTaskHandler(t.id)}/>
+            <input type="checkbox" checked={t.isDone} onChange={(event) => changeStatusHandler(t.id, event.currentTarget.checked)}/>
+            <span>{t.title}</span>
+          </li>
+        )
+      })
       }
     </ul>
     <div>
@@ -65,3 +75,7 @@ export function Todolist(props: PropsType) {
     </div>
   </div>
 }
+
+
+
+
