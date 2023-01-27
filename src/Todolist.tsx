@@ -12,7 +12,7 @@ type TaskType = {
 type PropsType = {
   title: string
   tasks: Array<TaskType>
-  removeTask: (taskId: string) => void
+  removeTask: (taskID: string) => void
   changeFilter: (value: FilterValuesType) => void
   addTask: (newTitle: string) => void
   changeStatus: (taskID: string, eventStatus: boolean) => void
@@ -41,8 +41,8 @@ export function Todolist(props: PropsType) {
     if (e.key === "Enter") return addTaskHandler()
   }
 
-  const removeTaskHandler = (t_id: string) => {
-    props.removeTask(t_id)
+  const removeTaskHandler = (tID: string) => {
+    props.removeTask(tID)
   }
 
   const changeFilterHandler = (nameButton: FilterValuesType) => {
