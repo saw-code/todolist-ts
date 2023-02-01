@@ -3,7 +3,7 @@ import {FilterValuesType} from './App';
 import {Button} from "./components/Button";
 import style from "./Todolist.module.css"
 
-type TaskType = {
+export type TaskType = {
   id: string
   title: string
   isDone: boolean
