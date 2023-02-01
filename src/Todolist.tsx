@@ -10,12 +10,14 @@ type TaskType = {
 }
 
 type PropsType = {
+  todoListID: string
   title: string
   tasks: Array<TaskType>
-  removeTask: (taskID: string) => void
-  changeFilter: (value: FilterValuesType) => void
-  addTask: (newTitle: string) => void
-  changeStatus: (taskID: string, eventStatus: boolean) => void
+  removeTask: (todoListID: string, taskID: string) => void
+  changeFilter: (todoListID: string, value: FilterValuesType) => void
+  addTask: (todoListID: string, newTitle: string) => void
+  changeStatus: (todoListID: string, taskID: string, eventStatus: boolean) => void
+  filter: FilterValuesType
 }
 
 export function Todolist(props: PropsType) {
@@ -25,7 +27,7 @@ export function Todolist(props: PropsType) {
 
   const addTaskHandler = () => {
     if (title.trim() !== "") {
-      props.addTask(title.trim())
+      props.addTask(props.todoListID, title.trim())
       setTitle("")
     } else {
       setError("Title is required")
@@ -42,16 +44,16 @@ export function Todolist(props: PropsType) {
   }
 
   const removeTaskHandler = (tID: string) => {
-    props.removeTask(tID)
+    props.removeTask(props.todoListID, tID)
   }
 
   const changeFilterHandler = (nameButton: FilterValuesType) => {
-    props.changeFilter(nameButton)
+    props.changeFilter(props.todoListID, nameButton)
     setNameButton(nameButton)
   }
 
   const changeStatusHandler = (tID: string, eventValue: boolean) => {
-    props.changeStatus(tID, eventValue)
+    props.changeStatus(props.todoListID, tID, eventValue)
   }
 
   return <div>
@@ -86,7 +88,3 @@ export function Todolist(props: PropsType) {
     </div>
   </div>
 }
-
-
-
-
