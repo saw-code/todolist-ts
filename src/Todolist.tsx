@@ -1,8 +1,9 @@
-import React, {ChangeEvent, KeyboardEvent, useState} from 'react';
+import React, {useState} from 'react';
 import {FilterValuesType} from './App';
 import {Button} from "./components/Button";
 import style from "./Todolist.module.css"
 import {AddItemForm} from "./components/AddItemForm";
+import {EditableSpan} from "./components/EditableSpan";
 
 export type TaskType = {
   id: string
@@ -47,7 +48,10 @@ export function Todolist(props: PropsType) {
   }
 
   return <div>
-    <h3>{props.title}<button onClick={removeTodolistHandler}>X</button></h3>
+
+    <h3><EditableSpan value={props.title}/>
+      <button onClick={removeTodolistHandler}>X</button>
+    </h3>
 
     <AddItemForm addItem={addTask}/>
     <ul>
@@ -58,7 +62,7 @@ export function Todolist(props: PropsType) {
             <Button name={"X"} callBack={() => removeTaskHandler(t.id)}/>
             <input type="checkbox" checked={t.isDone}
                    onChange={(event) => changeStatusHandler(t.id, event.currentTarget.checked)}/>
-            <span>{t.title}</span>
+            <EditableSpan value={t.title}/>
           </li>
         )
       })
