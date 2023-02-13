@@ -41,13 +41,9 @@ function App() {
     ]
   });
 
-  // let [tasks, setTasks] = useState([
-  //   {id: v1(), title: "HTML&CSS", isDone: true},
-  //   {id: v1(), title: "JS", isDone: true},
-  //   {id: v1(), title: "ReactJS", isDone: false},
-  //   {id: v1(), title: "Rest API", isDone: false},
-  //   {id: v1(), title: "GraphQL", isDone: false},
-  // ]);
+const removeTodolist = (todoListID: string) => {
+  setTodoLists(todoLists.filter(el => el.id !== todoListID))
+}
 
   const changeStatus = (todoListID: string, taskID: string, eventStatus: boolean) => {
     setTasks({...tasks, [todoListID]: tasks[todoListID].map(el =>
@@ -94,6 +90,7 @@ function App() {
           addTask={addTask}
           changeStatus={changeStatus}
           filter={el.filter}
+          removeTodolist={removeTodolist}
         />
       })}
     </div>

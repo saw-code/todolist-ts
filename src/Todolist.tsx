@@ -18,6 +18,7 @@ type PropsType = {
   addTask: (todoListID: string, newTitle: string) => void
   changeStatus: (todoListID: string, taskID: string, eventStatus: boolean) => void
   filter: FilterValuesType
+  removeTodolist: (todoListID: string) => void
 }
 
 export function Todolist(props: PropsType) {
@@ -56,8 +57,13 @@ export function Todolist(props: PropsType) {
     props.changeStatus(props.todoListID, tID, eventValue)
   }
 
+  const removeTodolistHandler = () => {
+    props.removeTodolist(props.todoListID)
+  }
+
   return <div>
-    <h3>{props.title}</h3>
+    <h3>{props.title}<button onClick={removeTodolistHandler}>X</button></h3>
+
     <div>
       <input className={error ? style.error : ""} value={title} onChange={onChangeHandler} onKeyPress={onKeyPressHandler}/>
       <Button name={"+"} callBack={addTaskHandler}/>
@@ -65,10 +71,6 @@ export function Todolist(props: PropsType) {
     {error && <div className={style.errorMessage}>{error}</div>}
     <ul>
       {props.tasks.map(t => {
-
-        // const changeStatusHandler = (event: ChangeEvent<HTMLInputElement>) => {
-        //   props.changeStatus(t.id, event.currentTarget.checked)
-        // }
 
         return (
           <li key={t.id} className={t.isDone? style.isDone : ""}>
