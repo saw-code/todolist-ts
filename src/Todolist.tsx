@@ -61,7 +61,7 @@ export function Todolist(props: PropsType) {
 
     return (
       <li key={t.id} className={t.isDone ? style.isDone : ""}>
-        <Button name={"X"} callBack={() => removeTaskHandler(t.id)}/>
+        <Button buttonName={"X"} callBack={() => removeTaskHandler(t.id)}/>
         <input type="checkbox" checked={t.isDone}
                onChange={(event) => changeStatusHandler(t.id, event.currentTarget.checked)}/>
         <EditableSpan value={t.title} callBack={(newTitle) => changeTitleHandler(t.id, newTitle)}/>
@@ -78,9 +78,9 @@ export function Todolist(props: PropsType) {
       {mappedTasks}
     </ul>
     <div>
-      <Button nameButton={nameButton} name={"all"} callBack={() => changeFilterHandler("all")}/>
-      <Button nameButton={nameButton} name={"active"} callBack={() => changeFilterHandler("active")}/>
-      <Button nameButton={nameButton} name={"completed"} callBack={() => changeFilterHandler("completed")}/>
+      <Button nameFilterButton={nameButton} buttonName={"all"} callBack={() => changeFilterHandler("all")}/>
+      <Button nameFilterButton={nameButton} buttonName={"active"} callBack={() => changeFilterHandler("active")}/>
+      <Button nameFilterButton={nameButton} buttonName={"completed"} callBack={() => changeFilterHandler("completed")}/>
     </div>
   </div>
 }

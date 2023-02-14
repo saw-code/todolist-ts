@@ -34,7 +34,7 @@ export function AddItemForm(props: AddItemFormPropsType) {
            value={title}
            onChange={onChangeHandler}
            onKeyPress={onKeyPressHandler}/>
-    <Button name={"+"} callBack={addTaskHandler}/>
+    <Button buttonName={"+"} callBack={addTaskHandler}/>
     {error && <div className={style.errorMessage}>{error}</div>}
   </div>
   )

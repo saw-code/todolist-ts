@@ -2,9 +2,9 @@ import React from 'react';
 import style from '../Todolist.module.css'
 
 type PropsType = {
-  name: string
+  buttonName: string
   callBack: () => void
-  nameButton?: string
+  nameFilterButton?: string
 }
 
 export function Button(props: PropsType) {
@@ -14,11 +14,11 @@ export function Button(props: PropsType) {
 
   return (
       <button
-        className={props.name === props.nameButton
+        className={props.buttonName === props.nameFilterButton
         ? style.activeFilter
         : "" }
         onClick={onCLickHandler}>
-        {props.name}
+        {props.buttonName}
       </button>
   )
 }
