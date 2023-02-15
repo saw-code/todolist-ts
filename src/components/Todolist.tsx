@@ -1,9 +1,9 @@
 import React, {useState} from 'react';
-import {FilterValuesType} from './App';
-import {Button} from "./components/Button";
-import style from "./Todolist.module.css"
-import {AddItemForm} from "./components/AddItemForm";
-import {EditableSpan} from "./components/EditableSpan";
+import {FilterValuesType} from '../App';
+import {Button} from "./Button";
+import style from "../Todolist.module.css"
+import {AddItemForm} from "./AddItemForm";
+import {EditableSpan} from "./EditableSpan";
 
 export type TaskType = {
   id: string
@@ -71,7 +71,7 @@ export function Todolist(props: PropsType) {
 
   return <div>
     <h3><EditableSpan value={props.title} callBack={changeTodolistHandler}/>
-      <button onClick={removeTodolistHandler}>X</button>
+      <Button callBack={removeTodolistHandler} buttonName={"X"}/>
     </h3>
     <AddItemForm addItem={addTask}/>
     <ul>
