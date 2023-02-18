@@ -1,8 +1,14 @@
-import React, {useState} from 'react';
+import React, {useReducer, useState} from 'react';
 import './App.css';
 import {TaskType, Todolist} from './components/Todolist';
 import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
+import {
+  changeFilterAC,
+  changeTodolistTitleAC,
+  removeTodolistAC,
+  todoListsReducer
+} from "./reducers/todoListsReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -20,7 +26,7 @@ function App() {
   let todoListID1 = v1()
   let todoListID2 = v1()
 
-  let [todoLists, setTodoLists] = useState<Array<TodoListsType>>([
+  let [todoLists, todoListsDispatch] = useReducer(todoListsReducer, [
     {id: todoListID1, title: 'What to learn', filter: 'all'},
     {id: todoListID2, title: 'What to buy', filter: 'all'},
   ])
@@ -43,7 +49,7 @@ function App() {
   });
 
 const removeTodolist = (todoListID: string) => {
-  setTodoLists(todoLists.filter(el => el.id !== todoListID))
+  todoListsDispatch(removeTodolistAC(todoListID))
   delete tasks[todoListID]
 }
 
@@ -65,8 +71,8 @@ const removeTodolist = (todoListID: string) => {
   }
 
   function changeFilter(todoListID: string, value: FilterValuesType) {
-    setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, filter: value} : el));
-  }
+    todoListsDispatch(changeFilterAC(todoListID, value))
+}
 
   function addTodolist(title: string) {
     let newTodolistId = v1()
@@ -84,7 +90,7 @@ const removeTodolist = (todoListID: string) => {
   }
 
   function changeTodolistTitle(todoListID: string, newTitle: string) {
-    setTodoLists(todoLists.map(el => el.id === todoListID ? {...el, title: newTitle} : el))
+    todoListsDispatch(changeTodolistTitleAC(todoListID, newTitle))
   }
 
   return (
