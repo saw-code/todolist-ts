@@ -9,6 +9,7 @@ import {
   removeTodolistAC,
   todoListsReducer
 } from "./reducers/todoListsReducer";
+import {addTaskAC, tasksReducer} from "./reducers/tasksReducer";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -18,7 +19,7 @@ export type TodoListsType = {
   filter: FilterValuesType
 }
 
-type TasksType = {
+export type TasksType = {
   [key: string]: TaskType[]
 }
 
@@ -31,7 +32,7 @@ function App() {
     {id: todoListID2, title: 'What to buy', filter: 'all'},
   ])
 
-  let [tasks, setTasks] = useState<TasksType>({
+  let [tasks, tasksDispatch] = useReducer(tasksReducer,{
     [todoListID1]: [
       {id: v1(), title: "HTML&CSS", isDone: true},
       {id: v1(), title: "JS", isDone: true},
@@ -62,8 +63,7 @@ const removeTodolist = (todoListID: string) => {
   }
 
   const addTask = (todoListID: string, newTitle: string) => {
-    let newTask = {id: v1(), title: newTitle, isDone: false}
-    setTasks({...tasks, [todoListID]: [newTask, ...tasks[todoListID]]})
+    tasksDispatch(addTaskAC(todoListID, newTitle))
   }
 
   function removeTask(todoListID: string, taskID: string) {
