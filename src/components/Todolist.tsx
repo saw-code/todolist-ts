@@ -1,15 +1,10 @@
 import React, {useState} from 'react';
-import {FilterValuesType} from '../App';
+import {FilterValuesType, TaskType} from '../App';
 import {Button} from "./Button";
 import style from "../Todolist.module.css"
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 
-export type TaskType = {
-  id: string
-  title: string
-  isDone: boolean
-}
 
 type PropsType = {
   todoListID: string

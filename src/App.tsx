@@ -1,6 +1,6 @@
 import React, {useReducer, useState} from 'react';
 import './App.css';
-import {TaskType, Todolist} from './components/Todolist';
+import {Todolist} from './components/Todolist';
 import {v1} from "uuid";
 import {AddItemForm} from "./components/AddItemForm";
 import {
@@ -13,12 +13,11 @@ import {
 import {
   addTaskAC,
   changeStatusAC,
-  changeTaskTitleAC,
+  changeTaskTitleAC, deleteTasksAC,
   newTasksForTodolistAC,
   removeTaskAC,
   tasksReducer
 } from "./reducers/tasksReducer";
-import {logDOM} from "@testing-library/react";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -26,6 +25,12 @@ export type TodoListsType = {
   id: string
   title: string
   filter: FilterValuesType
+}
+
+export type TaskType = {
+  id: string
+  title: string
+  isDone: boolean
 }
 
 export type TasksType = {
@@ -60,8 +65,7 @@ function App() {
 
   const removeTodolist = (todoListID: string) => {
     todoListsDispatch(removeTodolistAC(todoListID))
-
-    delete tasks[todoListID]
+    tasksDispatch(deleteTasksAC(todoListID))
   }
 
   const changeStatus = (todoListID: string, taskID: string, eventStatus: boolean) => {
@@ -84,7 +88,6 @@ function App() {
     let newTodolistId = v1()
     todoListsDispatch(addTodolistAC(newTodolistId, title))
     tasksDispatch(newTasksForTodolistAC(newTodolistId, title))
-    console.log(title)
   }
 
   function changeTaskTitle(todoListID: string, tID: string, newTitle: string) {
