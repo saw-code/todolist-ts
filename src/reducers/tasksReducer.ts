@@ -1,35 +1,35 @@
 import {TasksType} from "../App";
 import {v1} from "uuid";
 
-export const tasksReducer = (state: TasksType, action: MainType): TasksType => {
-  switch (action.type) {
+export const tasksReducer = (state: TasksType, {payload, type}: MainType): TasksType => {
+  switch (type) {
     case "ADD-TASK": {
-      let newTask = {id: v1(), title: action.payload.newTitle, isDone: false}
-      return {...state, [action.payload.todoListID]: [newTask, ...state[action.payload.todoListID]]}
+      let newTask = {id: v1(), title: payload.newTitle, isDone: false}
+      return {...state, [payload.todoListID]: [newTask, ...state[payload.todoListID]]}
     }
     case "REMOVE-TASK": {
-      return {...state, [action.payload.todoListID]: state[action.payload.todoListID].filter(el => el.id !== action.payload.taskID)}
+      return {...state, [payload.todoListID]: state[payload.todoListID].filter(el => el.id !== payload.taskID)}
     }
     case "CHANGE-TASK-TITLE": {
-      return {...state, [action.payload.todoListID]: state[action.payload.todoListID].map(el =>
-          el.id === action.payload.tID
-            ? {...el, title: action.payload.newTitle}
+      return {...state, [payload.todoListID]: state[payload.todoListID].map(el =>
+          el.id === payload.tID
+            ? {...el, title: payload.newTitle}
             : el)
       }
     }
     case "CHANGE-STATUS": {
-      return {...state, [action.payload.todoListID]: state[action.payload.todoListID].map(el =>
-          el.id === action.payload.taskID
-            ? {...el, isDone: action.payload.eventStatus}
+      return {...state, [payload.todoListID]: state[payload.todoListID].map(el =>
+          el.id === payload.taskID
+            ? {...el, isDone: payload.eventStatus}
             : el)
       }
     }
     case "NEW-TASK-FOR-TODOLIST": {
-      return {...state, [action.payload.newTodolistId]: []}
+      return {...state, [payload.newTodolistId]: []}
     }
     case "DELETE-TASKS": {
       const stateCopy = {...state}
-      delete stateCopy[action.payload.todoListID]
+      delete stateCopy[payload.todoListID]
       return stateCopy
     }
     default:
