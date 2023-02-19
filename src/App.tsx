@@ -18,6 +18,7 @@ import {
   removeTaskAC,
   tasksReducer
 } from "./reducers/tasksReducer";
+import {logDOM} from "@testing-library/react";
 
 export type FilterValuesType = "all" | "active" | "completed";
 
@@ -59,6 +60,7 @@ function App() {
 
   const removeTodolist = (todoListID: string) => {
     todoListsDispatch(removeTodolistAC(todoListID))
+
     delete tasks[todoListID]
   }
 
@@ -80,8 +82,9 @@ function App() {
 
   function addTodolist(title: string) {
     let newTodolistId = v1()
-    todoListsDispatch(addTodolistAC(title, newTodolistId))
-    tasksDispatch(newTasksForTodolistAC(title, newTodolistId))
+    todoListsDispatch(addTodolistAC(newTodolistId, title))
+    tasksDispatch(newTasksForTodolistAC(newTodolistId, title))
+    console.log(title)
   }
 
   function changeTaskTitle(todoListID: string, tID: string, newTitle: string) {

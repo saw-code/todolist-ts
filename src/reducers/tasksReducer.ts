@@ -38,6 +38,7 @@ type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 type ChangeTaskTitleACType = ReturnType<typeof changeTaskTitleAC>
 type ChangeStatusACType = ReturnType<typeof changeStatusAC>
 type newTasksForTodolistACType = ReturnType<typeof newTasksForTodolistAC>
+type DeleteTasksACType = ReturnType<typeof deleteTasksAC>
 
 export const addTaskAC = (todoListID: string, newTitle: string) => {
   return {
@@ -87,6 +88,15 @@ export const changeStatusAC = (todoListID: string, taskID: string, eventStatus: 
       todoListID,
       taskID,
       eventStatus
+    }
+  } as const
+}
+
+export const deleteTasksAC = (todoListID: string) => {
+  return {
+    type: "DELETE-TASK",
+    payload: {
+      todoListID
     }
   } as const
 }
