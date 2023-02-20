@@ -3,13 +3,16 @@ import {v1} from "uuid";
 
 export const tasksReducer = (state: TasksType, {payload, type}: MainType): TasksType => {
   switch (type) {
+
     case "ADD-TASK": {
       let newTask = {id: v1(), title: payload.newTitle, isDone: false}
       return {...state, [payload.todoListID]: [newTask, ...state[payload.todoListID]]}
     }
+
     case "REMOVE-TASK": {
       return {...state, [payload.todoListID]: state[payload.todoListID].filter(el => el.id !== payload.taskID)}
     }
+
     case "CHANGE-TASK-TITLE": {
       return {...state, [payload.todoListID]: state[payload.todoListID].map(el =>
           el.id === payload.tID
@@ -17,6 +20,7 @@ export const tasksReducer = (state: TasksType, {payload, type}: MainType): Tasks
             : el)
       }
     }
+
     case "CHANGE-STATUS": {
       return {...state, [payload.todoListID]: state[payload.todoListID].map(el =>
           el.id === payload.taskID
@@ -24,14 +28,17 @@ export const tasksReducer = (state: TasksType, {payload, type}: MainType): Tasks
             : el)
       }
     }
+
     case "NEW-TASK-FOR-TODOLIST": {
       return {...state, [payload.newTodolistId]: []}
     }
+
     case "DELETE-TASKS": {
       const stateCopy = {...state}
       delete stateCopy[payload.todoListID]
       return stateCopy
     }
+
     default:
       return state
   }
