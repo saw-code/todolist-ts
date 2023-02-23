@@ -14,7 +14,8 @@ export const tasksReducer = (state: TasksType, {payload, type}: MainType): Tasks
     }
 
     case "CHANGE-TASK-TITLE": {
-      return {...state, [payload.todoListID]: state[payload.todoListID].map(el =>
+      return {
+        ...state, [payload.todoListID]: state[payload.todoListID].map(el =>
           el.id === payload.tID
             ? {...el, title: payload.newTitle}
             : el)
@@ -22,7 +23,8 @@ export const tasksReducer = (state: TasksType, {payload, type}: MainType): Tasks
     }
 
     case "CHANGE-STATUS": {
-      return {...state, [payload.todoListID]: state[payload.todoListID].map(el =>
+      return {
+        ...state, [payload.todoListID]: state[payload.todoListID].map(el =>
           el.id === payload.taskID
             ? {...el, isDone: payload.eventStatus}
             : el)
@@ -44,7 +46,14 @@ export const tasksReducer = (state: TasksType, {payload, type}: MainType): Tasks
   }
 }
 
-type MainType = AddTaskACType | RemoveTaskACType | ChangeTaskTitleACType | ChangeStatusACType | newTasksForTodolistACType | DeleteTasksACType
+type MainType =
+  AddTaskACType
+  | RemoveTaskACType
+  | ChangeTaskTitleACType
+  | ChangeStatusACType
+  | newTasksForTodolistACType
+  | DeleteTasksACType
+
 type AddTaskACType = ReturnType<typeof addTaskAC>
 type RemoveTaskACType = ReturnType<typeof removeTaskAC>
 type ChangeTaskTitleACType = ReturnType<typeof changeTaskTitleAC>
@@ -62,12 +71,11 @@ export const addTaskAC = (todoListID: string, newTitle: string) => {
   } as const
 }
 
-export const newTasksForTodolistAC = (newTodolistId: string, title: string) => {
+export const newTasksForTodolistAC = (newTodolistId: string) => {
   return {
     type: "NEW-TASK-FOR-TODOLIST",
     payload: {
       newTodolistId,
-      title
     }
   } as const
 }
@@ -112,5 +120,3 @@ export const deleteTasksAC = (todoListID: string) => {
     }
   } as const
 }
-
-

@@ -87,7 +87,7 @@ function App() {
   function addTodolist(title: string) {
     let newTodolistId = v1()
     todoListsDispatch(addTodolistAC(newTodolistId, title))
-    tasksDispatch(newTasksForTodolistAC(newTodolistId, title))
+    tasksDispatch(newTasksForTodolistAC(newTodolistId))
   }
 
   function changeTaskTitle(todoListID: string, tID: string, newTitle: string) {
