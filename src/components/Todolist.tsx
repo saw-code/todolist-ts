@@ -7,6 +7,7 @@ import Button from "@mui/material/Button";
 import DeleteIcon from '@mui/icons-material/Delete';
 import IconButton from '@mui/material/IconButton'
 import {Delete} from "@mui/icons-material";
+import Checkbox from '@mui/material/Checkbox';
 
 type PropsType = {
   todoListID: string
@@ -57,10 +58,11 @@ export function Todolist(props: PropsType) {
     return (
       <li key={t.id} className={t.isDone ? style.isDone : ""}>
         <IconButton onClick={() => removeTaskHandler(t.id)}>
-           <Delete />
+          <Delete/>
         </IconButton>
-          <input type="checkbox" checked={t.isDone}
-               onChange={(event) => changeStatusHandler(t.id, event.currentTarget.checked)}/>
+        <Checkbox checked={t.isDone}
+                  onChange={(event) => changeStatusHandler(t.id, event.currentTarget.checked)}
+                  color="secondary"/>
         <EditableSpan value={t.title} callBack={(newTitle) => changeTitleHandler(t.id, newTitle)}/>
       </li>
     )
@@ -69,7 +71,7 @@ export function Todolist(props: PropsType) {
   return <div>
     <h3><EditableSpan value={props.title} callBack={changeTodolistHandler}/>
       <IconButton onClick={removeTodolistHandler} aria-label="delete">
-        <DeleteIcon />
+        <DeleteIcon/>
       </IconButton>
     </h3>
     <AddItemForm addItem={addTask}/>
@@ -77,20 +79,15 @@ export function Todolist(props: PropsType) {
       {mappedTasks}
     </ul>
     <div>
-      <Button variant={props.filter === 'all'? "outlined" : "text" }
+      <Button variant={props.filter === 'all' ? "outlined" : "text"}
               color="inherit"
               onClick={onAllClickHandler}>All</Button>
-      <Button variant={props.filter === 'active'? "outlined" : "text" }
+      <Button variant={props.filter === 'active' ? "outlined" : "text"}
               color="primary"
               onClick={onActiveClickHandler}>Active</Button>
-      <Button variant={props.filter === 'completed'? "outlined" : "text" }
+      <Button variant={props.filter === 'completed' ? "outlined" : "text"}
               color="secondary"
               onClick={onCompletedClickHandler}>Completed</Button>
-
-
-      {/*<Button nameFilterButton={nameButton} buttonName={"all"} callBack={() => changeFilterHandler("all")}/>*/}
-      {/*<Button nameFilterButton={nameButton} buttonName={"active"} callBack={() => changeFilterHandler("active")}/>*/}
-      {/*<Button nameFilterButton={nameButton} buttonName={"completed"} callBack={() => changeFilterHandler("completed")}/>*/}
     </div>
   </div>
 }

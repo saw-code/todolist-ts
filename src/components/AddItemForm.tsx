@@ -1,8 +1,6 @@
 import React, {ChangeEvent, KeyboardEvent, useState} from "react";
-import style from "../Todolist.module.css";
-// import {Button} from "./Button";
-import Button from "@mui/material/Button";
 import {TextField} from "@mui/material";
+import Button from '@mui/material/Button';
 
 type AddItemFormPropsType = {
   addItem: (title: string) => void
@@ -30,19 +28,32 @@ export function AddItemForm(props: AddItemFormPropsType) {
     if (e.key === "Enter") return addTaskHandler()
   }
 
+  const buttonSettings = {
+    maxWidth: "38px",
+    maxHeight: "38px",
+    minWidth: "38px",
+    minHeight: "38px",
+    margin: "5px",
+  }
+
   return (
-  <div>
-    <TextField variant={"outlined"}
-           value={title}
-           onChange={onChangeHandler}
-           onKeyPress={onKeyPressHandler}
-           className={error ? style.error : ""}/>
-    <Button size="small"
-            variant = "contained"
-            color = "primary"
-            onClick={addTaskHandler}
-            style={{maxWidth: '30px', maxHeight: '30px', minWidth: '30px', minHeight: '30px'}}>+</Button>
-    {error && <div className={style.errorMessage}>{error}</div>}
-  </div>
+    <div>
+      <TextField variant={"outlined"}
+                 value={title}
+                 onChange={onChangeHandler}
+                 onKeyPress={onKeyPressHandler}
+                 error={!!error}
+                 label="Title"
+                 helperText={error}
+      />
+      {/*<IconButton color="primary"*/}
+      {/*            onClick={addTaskHandler}*/}
+      {/*>+</IconButton>*/}
+      <Button
+        style={buttonSettings}
+        onClick={addTaskHandler}
+        size="small"
+        variant="contained">+</Button>
+    </div>
   )
 }
