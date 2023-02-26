@@ -46,9 +46,6 @@ export function AddItemForm(props: AddItemFormPropsType) {
                  label="Title"
                  helperText={error}
       />
-      {/*<IconButton color="primary"*/}
-      {/*            onClick={addTaskHandler}*/}
-      {/*>+</IconButton>*/}
       <Button
         style={buttonSettings}
         onClick={addTaskHandler}
