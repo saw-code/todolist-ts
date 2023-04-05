@@ -17,7 +17,7 @@ export const todoListsReducer = (state: TodoListsType[], {type, payload}: MainTy
 
     case "ADD-TODOLIST": {
       let newTodolist: TodoListsType = {id: payload.newTodolistId, title: payload.title, filter: "all"}
-      return [newTodolist ,...state]
+      return [newTodolist, ...state]
     }
 
     default:
