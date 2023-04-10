@@ -8,6 +8,9 @@ import {
 import {v1} from "uuid";
 import {FilterValuesType, TodoListsType} from "../App";
 
+let todolistId1 = v1();
+let todolistId2: string
+
 test("todolist should be removed", () => {
   let todolistId1 = v1();
   let todolistId2 = v1();

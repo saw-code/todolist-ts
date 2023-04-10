@@ -8,11 +8,16 @@ import {
   tasksReducer
 } from "./tasksReducer";
 
-test("task should be removed", () => {
-  let todoListID1 = v1()
-  let todoListID2 = v1()
+let todoListID1: string
+let todoListID2: string
 
-  const startState: TasksType = {
+let startState: TasksType
+
+beforeEach(() => {
+  todoListID1 = v1()
+  todoListID2 = v1()
+
+  startState = {
     [todoListID1]: [
       {id: v1(), title: "HTML&CSS", isDone: true},
       {id: v1(), title: "JS", isDone: true},
@@ -28,7 +33,9 @@ test("task should be removed", () => {
       {id: v1(), title: "GraphQL2", isDone: false},
     ]
   }
+})
 
+test("task should be removed", () => {
   const removeTaskID = startState[todoListID1][0].id
 
   const endState = tasksReducer(startState, removeTaskAC(todoListID1, removeTaskID))
@@ -38,25 +45,6 @@ test("task should be removed", () => {
 })
 
 test("task should be added", () => {
-  let todoListID1 = v1()
-  let todoListID2 = v1()
-
-  const startState: TasksType = {
-    [todoListID1]: [
-      {id: v1(), title: "HTML&CSS", isDone: true},
-      {id: v1(), title: "JS", isDone: true},
-      {id: v1(), title: "ReactJS", isDone: false},
-      {id: v1(), title: "Rest API", isDone: false},
-      {id: v1(), title: "GraphQL", isDone: false},
-    ],
-    [todoListID2]: [
-      {id: v1(), title: "HTML&CSS2", isDone: true},
-      {id: v1(), title: "JS2", isDone: true},
-      {id: v1(), title: "ReactJS2", isDone: false},
-      {id: v1(), title: "Rest API2", isDone: false},
-      {id: v1(), title: "GraphQL2", isDone: false},
-    ]
-  }
 
   const newTaskTitle = "My new task"
 
@@ -68,26 +56,6 @@ test("task should be added", () => {
 })
 
 test("should change task title", () => {
-  let todoListID1 = v1()
-  let todoListID2 = v1()
-
-  const startState: TasksType = {
-    [todoListID1]: [
-      {id: v1(), title: "HTML&CSS", isDone: true},
-      {id: v1(), title: "JS", isDone: true},
-      {id: v1(), title: "ReactJS", isDone: false},
-      {id: v1(), title: "Rest API", isDone: false},
-      {id: v1(), title: "GraphQL", isDone: false},
-    ],
-    [todoListID2]: [
-      {id: v1(), title: "HTML&CSS2", isDone: true},
-      {id: v1(), title: "JS2", isDone: true},
-      {id: v1(), title: "ReactJS2", isDone: false},
-      {id: v1(), title: "Rest API2", isDone: false},
-      {id: v1(), title: "GraphQL2", isDone: false},
-    ]
-  }
-
   const newTaskTitle = "HTML SCUM"
   const changeTaskID = startState[todoListID1][0].id
 
@@ -99,26 +67,6 @@ test("should change task title", () => {
 })
 
 test("should add empty tasks array for todolist", () => {
-  let todoListID1 = v1()
-  let todoListID2 = v1()
-
-  const startState: TasksType = {
-    [todoListID1]: [
-      {id: v1(), title: "HTML&CSS", isDone: true},
-      {id: v1(), title: "JS", isDone: true},
-      {id: v1(), title: "ReactJS", isDone: false},
-      {id: v1(), title: "Rest API", isDone: false},
-      {id: v1(), title: "GraphQL", isDone: false},
-    ],
-    [todoListID2]: [
-      {id: v1(), title: "HTML&CSS2", isDone: true},
-      {id: v1(), title: "JS2", isDone: true},
-      {id: v1(), title: "ReactJS2", isDone: false},
-      {id: v1(), title: "Rest API2", isDone: false},
-      {id: v1(), title: "GraphQL2", isDone: false},
-    ]
-  }
-
   const newTodoListID = v1()
   const endState = tasksReducer(startState, newTasksForTodolistAC(newTodoListID))
 
@@ -126,26 +74,6 @@ test("should add empty tasks array for todolist", () => {
 })
 
 test("should change tasks status", () => {
-  let todoListID1 = v1()
-  let todoListID2 = v1()
-
-  const startState: TasksType = {
-    [todoListID1]: [
-      {id: v1(), title: "HTML&CSS", isDone: true},
-      {id: v1(), title: "JS", isDone: true},
-      {id: v1(), title: "ReactJS", isDone: false},
-      {id: v1(), title: "Rest API", isDone: false},
-      {id: v1(), title: "GraphQL", isDone: false},
-    ],
-    [todoListID2]: [
-      {id: v1(), title: "HTML&CSS2", isDone: true},
-      {id: v1(), title: "JS2", isDone: true},
-      {id: v1(), title: "ReactJS2", isDone: false},
-      {id: v1(), title: "Rest API2", isDone: false},
-      {id: v1(), title: "GraphQL2", isDone: false},
-    ]
-  }
-
   const taskID = startState[todoListID1][0].id
   const taskStatus = false
 
@@ -157,26 +85,6 @@ test("should change tasks status", () => {
 })
 
 test("should delete tasks from todolist if delete todolist", () => {
-  let todoListID1 = v1()
-  let todoListID2 = v1()
-
-  const startState: TasksType = {
-    [todoListID1]: [
-      {id: v1(), title: "HTML&CSS", isDone: true},
-      {id: v1(), title: "JS", isDone: true},
-      {id: v1(), title: "ReactJS", isDone: false},
-      {id: v1(), title: "Rest API", isDone: false},
-      {id: v1(), title: "GraphQL", isDone: false},
-    ],
-    [todoListID2]: [
-      {id: v1(), title: "HTML&CSS2", isDone: true},
-      {id: v1(), title: "JS2", isDone: true},
-      {id: v1(), title: "ReactJS2", isDone: false},
-      {id: v1(), title: "Rest API2", isDone: false},
-      {id: v1(), title: "GraphQL2", isDone: false},
-    ]
-  }
-
   const endState = tasksReducer(startState, deleteTasksAC(todoListID1))
 
   expect(endState[todoListID1]).toBe(undefined)
